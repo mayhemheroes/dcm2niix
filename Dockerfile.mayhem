@@ -1,0 +1,14 @@
+FROM ubuntu:22.04
+
+# Install Dependencies
+RUN apt-get update && \
+    apt-get install -y libyaml-cpp-dev build-essential pkg-config cmake git pigz && \
+    apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y
+
+# Get dcm2niix from github and compile
+RUN cd /tmp 
+COPY . dcm2niix
+RUN cd dcm2niix && mkdir build && cd build && \
+    cmake -DBATCH_VERSION=ON .. && \
+    make -j8 && make install
+
