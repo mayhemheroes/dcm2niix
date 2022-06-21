@@ -1,8 +1,8 @@
-project: rnshah9/dcm2niix
+project: dcm2niix
 target: dcm2niibatch
-tests:
+testsuite:
   - file://batch_config.yml
 
 cmds:
-  - cmd: /dcm2niix/build/bin/dcm2niibatch @@
+  - cmd: /dcm2niix/build/bin/dcm2niibatch /test.yml
     filepath: /test.yml
