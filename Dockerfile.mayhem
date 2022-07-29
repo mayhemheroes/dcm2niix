@@ -16,4 +16,4 @@ RUN cd dcm2niix && mkdir build && cd build && \
 FROM ubuntu:22.04 as package
 RUN apt-get update && \
     apt-get install -y libyaml-cpp-dev 
-COPY --from=builder /dcm2niix/build/bin/dcm2niibatch /
+COPY --from=builder /install /install
