@@ -4,5 +4,4 @@ testsuite:
   - file://batch_config.yml
 
 cmds:
-  - cmd: /dcm2niix/build/bin/dcm2niibatch /test.yml
-    filepath: /test.yml
+  - cmd: /install/bin/dcm2niibatch @@
