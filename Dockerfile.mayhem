@@ -9,15 +9,11 @@ RUN apt-get update && \
 RUN cd /tmp 
 COPY . dcm2niix
 RUN cd dcm2niix && mkdir build && cd build && \
-    cmake -DBATCH_VERSION=ON .. && \
+    cmake -DBATCH_VERSION=ON -DCMAKE_INSTALL_PREFIX=/install .. && \
     make -j8 && make install
 
 
-RUN mkdir -p /deps
-RUN ldd /dcm2niix/build/bin/dcm2niibatch | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I % sh -c 'cp % /deps;'
-
 FROM ubuntu:22.04 as package
-
-COPY --from=builder /deps /deps
-COPY --from=builder /dcm2niix/build/bin/dcm2niibatch /dcm2niix/build/bin/dcm2niibatch
-ENV LD_LIBRARY_PATH=/deps
+RUN apt-get update && \
+    apt-get install -y libyaml-cpp-dev 
+COPY --from=builder /dcm2niix/build/bin/dcm2niibatch /
