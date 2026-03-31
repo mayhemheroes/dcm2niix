@@ -1,0 +1,7 @@
+project: dcm2niix
+target: dcm2niibatch
+testsuite:
+  - file://batch_config.yml
+
+cmds:
+  - cmd: /install/bin/dcm2niibatch @@
