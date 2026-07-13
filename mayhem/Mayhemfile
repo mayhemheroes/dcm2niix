@@ -1,0 +1,17 @@
+project: dcm2niix
+target: dcm2niibatch
+
+# In-process libFuzzer harness (mayhem/fuzz_dcm2niix.cpp) over readDICOMv() — the core DICOM
+# parser the dcm2niibatch converter drives for every input file. Replaces the old raw file-input
+# target (`/install/bin/dcm2niibatch @@` fed a YAML *config* file), which never fuzzed DICOM
+# parsing and produced ~no coverage; the target NAME is preserved.
+
+image: $MAYHEM_DOCKER_IMAGE
+
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/dcm2niibatch/testsuite
+
+cmds:
+  - cmd: /mayhem/dcm2niibatch
+    libfuzzer: true
